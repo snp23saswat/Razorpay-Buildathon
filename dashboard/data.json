@@ -1,0 +1,2646 @@
+{
+  "summary": {
+    "total_at_risk": 2496450.63,
+    "total_recovered": 1594046.64,
+    "total_intervention_cost": 14330.67,
+    "net_value_recovered": 1579715.97,
+    "roi_multiplier": 110.23,
+    "recovery_rate": 0.6385,
+    "by_type": {
+      "subscription_failure": {
+        "at_risk": 41543.09,
+        "recovered": 24102.34,
+        "cost": 1125.0,
+        "net": 22977.34,
+        "count": 15,
+        "recovered_count": 9,
+        "recovery_rate": 0.5802
+      },
+      "payment_failure": {
+        "at_risk": 173482.34,
+        "recovered": 44608.06,
+        "cost": 1065.0,
+        "net": 43543.06,
+        "count": 15,
+        "recovered_count": 3,
+        "recovery_rate": 0.2571
+      },
+      "overdue_invoice": {
+        "at_risk": 2179994.57,
+        "recovered": 1500390.07,
+        "cost": 1990.0,
+        "net": 1498400.07,
+        "count": 15,
+        "recovered_count": 10,
+        "recovery_rate": 0.6883
+      },
+      "checkout_abandonment": {
+        "at_risk": 101430.63,
+        "recovered": 24946.17,
+        "cost": 10150.67,
+        "net": 14795.5,
+        "count": 15,
+        "recovered_count": 2,
+        "recovery_rate": 0.2459
+      }
+    },
+    "stopped_for_optout": 1,
+    "quiet_hours_deferred": 34,
+    "customer_dedup_capped": 18,
+    "escalated_to_human": 17,
+    "recovered_count": 24,
+    "not_recovered": 17,
+    "processed_at_ist": "2026-09-05 23:44:50 IST"
+  },
+  "audit_trail": [
+    {
+      "event_id": "sf_0004",
+      "type": "subscription_failure",
+      "customer_id": "cust_013",
+      "customer_name": "Pooja Sharma",
+      "customer_lang": "hi",
+      "amount": 1372.26,
+      "timestamp_ist": "2026-09-05 04:49:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "card_declined_generic",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (04:49 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.32,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +8h (at 12:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 1372.26,
+      "total_cost": 5.0,
+      "net_recovered": 1367.26,
+      "ml_diagnostics": {
+        "diagnosed_cause": "card_declined_generic",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+8h (at 12:00 IST)"
+      }
+    },
+    {
+      "event_id": "pf_0014",
+      "type": "payment_failure",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 16810.14,
+      "timestamp_ist": "2026-09-04 20:15:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "risk_blocked",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 1,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 250.0,
+      "net_recovered": -250.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "risk_blocked",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+24h (at 20:00 IST)"
+      }
+    },
+    {
+      "event_id": "oi_0004",
+      "type": "overdue_invoice",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 66246.85,
+      "timestamp_ist": "2026-07-27 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "high_default_risk",
+          "confidence": 0.88,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'high_default_risk' (Default prob: 73.6%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "formal_notice",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 1,
+          "success_probability": 0.4,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 2,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 300.0,
+      "net_recovered": -300.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "high_default_risk",
+        "confidence_score": 0.88,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'high_default_risk' (Default prob: 73.6%)."
+      }
+    },
+    {
+      "event_id": "oi_0014",
+      "type": "overdue_invoice",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 234249.21,
+      "timestamp_ist": "2026-08-26 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 0.0%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.3,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 234249.21,
+      "total_cost": 65.0,
+      "net_recovered": 234184.21,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 0.0%)."
+      }
+    },
+    {
+      "event_id": "pf_0006",
+      "type": "payment_failure",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 13887.57,
+      "timestamp_ist": "2026-09-04 10:00:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "card_declined_generic",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "success_probability": 0.469,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed retry_after_delay via automated_engine.",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (22:00 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.4,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed switch_payment_method_nudge via automated_engine.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "card_declined_generic",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+8h (at 18:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0001",
+      "type": "subscription_failure",
+      "customer_id": "cust_012",
+      "customer_name": "Siddharth Joshi",
+      "customer_lang": "en",
+      "amount": 1820.26,
+      "timestamp_ist": "2026-09-04 16:33:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "bank_technical_error",
+          "confidence": 0.75,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'bank_technical_error' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.633,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +4h (at 20:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 1820.26,
+      "total_cost": 5.0,
+      "net_recovered": 1815.26,
+      "ml_diagnostics": {
+        "diagnosed_cause": "bank_technical_error",
+        "confidence_score": 0.75,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'bank_technical_error' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+4h (at 20:00 IST)"
+      }
+    },
+    {
+      "event_id": "ca_0004",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_009",
+      "customer_name": "Divya Menon",
+      "customer_lang": "hi",
+      "amount": 6715.99,
+      "timestamp_ist": "2026-09-05 06:25:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "price_sensitivity",
+          "confidence": 0.5135,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'price_sensitivity' with 51.3% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (06:25 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.562,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1012.4
+        },
+        {
+          "stage": "execution",
+          "action": "reminder_message",
+          "attempt": 2,
+          "success_probability": 0.25,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed reminder_message via automated_engine. (ML Discount: 0%)",
+          "cost": 8.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 1270.4,
+      "net_recovered": -1270.4,
+      "ml_diagnostics": {
+        "diagnosed_cause": "price_sensitivity",
+        "confidence_score": 0.5135,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'price_sensitivity' with 51.3% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "sf_0005",
+      "type": "subscription_failure",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 3118.43,
+      "timestamp_ist": "2026-09-05 05:00:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (05:00 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.287,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +12h (at 17:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 3118.43,
+      "total_cost": 15.0,
+      "net_recovered": 3103.43,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+12h (at 17:00 IST)"
+      }
+    },
+    {
+      "event_id": "pf_0004",
+      "type": "payment_failure",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 13676.97,
+      "timestamp_ist": "2026-09-04 15:06:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "bank_technical_error",
+          "confidence": 0.75,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'bank_technical_error' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "success_probability": 0.651,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed retry_after_delay via automated_engine. (Smart Window: +4h (at 19:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 13676.97,
+      "total_cost": 5.0,
+      "net_recovered": 13671.97,
+      "ml_diagnostics": {
+        "diagnosed_cause": "bank_technical_error",
+        "confidence_score": 0.75,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'bank_technical_error' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+4h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "ca_0002",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_004",
+      "customer_name": "Vikram Rao",
+      "customer_lang": "hi",
+      "amount": 12496.54,
+      "timestamp_ist": "2026-09-05 23:14:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "price_sensitivity",
+          "confidence": 1.0,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'price_sensitivity' with 100.0% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:14 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.406,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1879.48
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 12496.54,
+      "total_cost": 1879.48,
+      "net_recovered": 10617.06,
+      "ml_diagnostics": {
+        "diagnosed_cause": "price_sensitivity",
+        "confidence_score": 1.0,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'price_sensitivity' with 100.0% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "sf_0000",
+      "type": "subscription_failure",
+      "customer_id": "cust_013",
+      "customer_name": "Pooja Sharma",
+      "customer_lang": "hi",
+      "amount": 2841.47,
+      "timestamp_ist": "2026-09-04 15:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "risk_blocked",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.158,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +4h (at 19:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (03:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "risk_blocked",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+4h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "pf_0010",
+      "type": "payment_failure",
+      "customer_id": "cust_010",
+      "customer_name": "Rohan Das",
+      "customer_lang": "en",
+      "amount": 16410.67,
+      "timestamp_ist": "2026-09-05 04:56:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (04:56 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "success_probability": 0.422,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed retry_after_delay via automated_engine. (Smart Window: +8h (at 12:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "execution",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed switch_payment_method_nudge via whatsapp_upi_intent.",
+          "cost": 10.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 16410.67,
+      "total_cost": 15.0,
+      "net_recovered": 16395.67,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+8h (at 12:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0006",
+      "type": "subscription_failure",
+      "customer_id": "cust_011",
+      "customer_name": "Anjali Singh",
+      "customer_lang": "hi",
+      "amount": 2349.16,
+      "timestamp_ist": "2026-09-05 01:55:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (01:55 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.204,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +8h (at 09:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 2349.16,
+      "total_cost": 5.0,
+      "net_recovered": 2344.16,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+8h (at 09:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0008",
+      "type": "subscription_failure",
+      "customer_id": "cust_000",
+      "customer_name": "Rahul Verma",
+      "customer_lang": "hi",
+      "amount": 3316.93,
+      "timestamp_ist": "2026-09-03 20:21:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.342,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +24h (at 20:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+24h (at 20:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0009",
+      "type": "subscription_failure",
+      "customer_id": "cust_012",
+      "customer_name": "Siddharth Joshi",
+      "customer_lang": "en",
+      "amount": 3550.61,
+      "timestamp_ist": "2026-09-05 17:53:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.345,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +2h (at 19:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (05:53 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+2h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "oi_0006",
+      "type": "overdue_invoice",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 92192.06,
+      "timestamp_ist": "2026-07-08 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 1.6%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.35,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 325.0,
+      "net_recovered": -325.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 1.6%)."
+      }
+    },
+    {
+      "event_id": "ca_0008",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_010",
+      "customer_name": "Rohan Das",
+      "customer_lang": "en",
+      "amount": 12227.18,
+      "timestamp_ist": "2026-09-04 17:36:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "distraction_or_bounce",
+          "confidence": 0.5478,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'distraction_or_bounce' with 54.8% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.227,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1839.08
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "reminder_message",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (05:36 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "reminder_message",
+          "attempt": 2,
+          "success_probability": 0.25,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed reminder_message via automated_engine. (ML Discount: 0%)",
+          "cost": 8.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 2097.08,
+      "net_recovered": -2097.08,
+      "ml_diagnostics": {
+        "diagnosed_cause": "distraction_or_bounce",
+        "confidence_score": 0.5478,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'distraction_or_bounce' with 54.8% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "ca_0010",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_005",
+      "customer_name": "Neha Gupta",
+      "customer_lang": "en",
+      "amount": 8464.71,
+      "timestamp_ist": "2026-09-05 02:08:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "price_sensitivity",
+          "confidence": 1.0,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'price_sensitivity' with 100.0% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (02:08 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.318,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1274.71
+        },
+        {
+          "stage": "execution",
+          "action": "reminder_message",
+          "attempt": 2,
+          "success_probability": 0.25,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed reminder_message via automated_engine. (ML Discount: 0%)",
+          "cost": 8.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 1532.71,
+      "net_recovered": -1532.71,
+      "ml_diagnostics": {
+        "diagnosed_cause": "price_sensitivity",
+        "confidence_score": 1.0,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'price_sensitivity' with 100.0% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "oi_0007",
+      "type": "overdue_invoice",
+      "customer_id": "cust_011",
+      "customer_name": "Anjali Singh",
+      "customer_lang": "hi",
+      "amount": 135160.79,
+      "timestamp_ist": "2026-07-16 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 2.7%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.35,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 325.0,
+      "net_recovered": -325.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 2.7%)."
+      }
+    },
+    {
+      "event_id": "ca_0013",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_010",
+      "customer_name": "Rohan Das",
+      "customer_lang": "en",
+      "amount": 4812.93,
+      "timestamp_ist": "2026-09-04 12:40:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_010 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "sf_0014",
+      "type": "subscription_failure",
+      "customer_id": "cust_002",
+      "customer_name": "Amit Shah",
+      "customer_lang": "hi",
+      "amount": 4793.68,
+      "timestamp_ist": "2026-09-05 17:55:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.616,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +2h (at 19:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 4793.68,
+      "total_cost": 5.0,
+      "net_recovered": 4788.68,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+2h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "pf_0000",
+      "type": "payment_failure",
+      "customer_id": "cust_003",
+      "customer_name": "Sara Khan",
+      "customer_lang": "en",
+      "amount": 15499.84,
+      "timestamp_ist": "2026-09-04 17:09:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "risk_blocked",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 1,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 250.0,
+      "net_recovered": -250.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "risk_blocked",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'risk_blocked' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+2h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "oi_0011",
+      "type": "overdue_invoice",
+      "customer_id": "cust_005",
+      "customer_name": "Neha Gupta",
+      "customer_lang": "en",
+      "amount": 280113.03,
+      "timestamp_ist": "2026-07-30 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 0.2%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 280113.03,
+      "total_cost": 15.0,
+      "net_recovered": 280098.03,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 0.2%)."
+      }
+    },
+    {
+      "event_id": "oi_0000",
+      "type": "overdue_invoice",
+      "customer_id": "cust_002",
+      "customer_name": "Amit Shah",
+      "customer_lang": "hi",
+      "amount": 338103.43,
+      "timestamp_ist": "2026-08-24 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 1.2%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 338103.43,
+      "total_cost": 15.0,
+      "net_recovered": 338088.43,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 1.2%)."
+      }
+    },
+    {
+      "event_id": "oi_0003",
+      "type": "overdue_invoice",
+      "customer_id": "cust_008",
+      "customer_name": "Arjun Mehta",
+      "customer_lang": "en",
+      "amount": 130228.14,
+      "timestamp_ist": "2026-08-27 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 0.0%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.3,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 315.0,
+      "net_recovered": -315.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 0.0%)."
+      }
+    },
+    {
+      "event_id": "oi_0002",
+      "type": "overdue_invoice",
+      "customer_id": "cust_004",
+      "customer_name": "Vikram Rao",
+      "customer_lang": "hi",
+      "amount": 29591.98,
+      "timestamp_ist": "2026-08-09 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 7.7%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 29591.98,
+      "total_cost": 25.0,
+      "net_recovered": 29566.98,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 7.7%)."
+      }
+    },
+    {
+      "event_id": "oi_0001",
+      "type": "overdue_invoice",
+      "customer_id": "cust_008",
+      "customer_name": "Arjun Mehta",
+      "customer_lang": "en",
+      "amount": 35087.27,
+      "timestamp_ist": "2026-07-28 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 1.0%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.35,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 35087.27,
+      "total_cost": 75.0,
+      "net_recovered": 35012.27,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 1.0%)."
+      }
+    },
+    {
+      "event_id": "sf_0007",
+      "type": "subscription_failure",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 4668.09,
+      "timestamp_ist": "2026-09-05 05:05:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (05:05 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.374,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +12h (at 17:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 4668.09,
+      "total_cost": 5.0,
+      "net_recovered": 4663.09,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+12h (at 17:00 IST)"
+      }
+    },
+    {
+      "event_id": "oi_0013",
+      "type": "overdue_invoice",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 151504.72,
+      "timestamp_ist": "2026-08-20 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 13.7%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.35,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 151504.72,
+      "total_cost": 75.0,
+      "net_recovered": 151429.72,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 13.7%)."
+      }
+    },
+    {
+      "event_id": "pf_0002",
+      "type": "payment_failure",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 3686.18,
+      "timestamp_ist": "2026-09-04 04:53:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_001 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0001",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 622.76,
+      "timestamp_ist": "2026-09-05 10:13:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_006 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "oi_0009",
+      "type": "overdue_invoice",
+      "customer_id": "cust_012",
+      "customer_name": "Siddharth Joshi",
+      "customer_lang": "en",
+      "amount": 74682.59,
+      "timestamp_ist": "2026-08-24 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 0.5%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.3,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 74682.59,
+      "total_cost": 65.0,
+      "net_recovered": 74617.59,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 0.5%)."
+      }
+    },
+    {
+      "event_id": "oi_0010",
+      "type": "overdue_invoice",
+      "customer_id": "cust_013",
+      "customer_name": "Pooja Sharma",
+      "customer_lang": "hi",
+      "amount": 93714.24,
+      "timestamp_ist": "2026-07-29 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 22.3%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 93714.24,
+      "total_cost": 25.0,
+      "net_recovered": 93689.24,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 22.3%)."
+      }
+    },
+    {
+      "event_id": "oi_0008",
+      "type": "overdue_invoice",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 249285.05,
+      "timestamp_ist": "2026-07-02 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 2.5%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 249285.05,
+      "total_cost": 25.0,
+      "net_recovered": 249260.05,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 2.5%)."
+      }
+    },
+    {
+      "event_id": "oi_0005",
+      "type": "overdue_invoice",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 255776.66,
+      "timestamp_ist": "2026-07-17 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "medium_risk",
+          "confidence": 0.78,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'medium_risk' (Default prob: 3.0%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "promise_to_pay_followup",
+          "attempt": 1,
+          "success_probability": 0.55,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed promise_to_pay_followup via automated_engine.",
+          "cost": 25.0
+        },
+        {
+          "stage": "execution",
+          "action": "formal_notice",
+          "attempt": 2,
+          "success_probability": 0.35,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed formal_notice via automated_engine.",
+          "cost": 50.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 325.0,
+      "net_recovered": -325.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "medium_risk",
+        "confidence_score": 0.78,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'medium_risk' (Default prob: 3.0%)."
+      }
+    },
+    {
+      "event_id": "ca_0012",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_009",
+      "customer_name": "Divya Menon",
+      "customer_lang": "hi",
+      "amount": 8183.73,
+      "timestamp_ist": "2026-09-04 12:12:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "friction_hesitation",
+          "confidence": 0.5586,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'friction_hesitation' with 55.9% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.239,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1232.56
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "reminder_message",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (00:12 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "reminder_message",
+          "attempt": 2,
+          "success_probability": 0.25,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed reminder_message via automated_engine. (ML Discount: 0%)",
+          "cost": 8.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 1490.56,
+      "net_recovered": -1490.56,
+      "ml_diagnostics": {
+        "diagnosed_cause": "friction_hesitation",
+        "confidence_score": 0.5586,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'friction_hesitation' with 55.9% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "sf_0002",
+      "type": "subscription_failure",
+      "customer_id": "cust_000",
+      "customer_name": "Rahul Verma",
+      "customer_lang": "hi",
+      "amount": 3915.86,
+      "timestamp_ist": "2026-09-03 06:42:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_000 already contacted on 2026-09-03 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0008",
+      "type": "payment_failure",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 15234.16,
+      "timestamp_ist": "2026-09-04 16:29:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "card_declined_generic",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "success_probability": 0.391,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed retry_after_delay via automated_engine.",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (04:29 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.4,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed switch_payment_method_nudge via automated_engine.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "card_declined_generic",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'card_declined_generic' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+4h (at 20:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0012",
+      "type": "subscription_failure",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 4867.23,
+      "timestamp_ist": "2026-09-03 22:19:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "expired_card",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'expired_card' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (22:19 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.125,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +12h (at 10:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 4867.23,
+      "total_cost": 5.0,
+      "net_recovered": 4862.23,
+      "ml_diagnostics": {
+        "diagnosed_cause": "expired_card",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'expired_card' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+12h (at 10:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0013",
+      "type": "subscription_failure",
+      "customer_id": "cust_011",
+      "customer_name": "Anjali Singh",
+      "customer_lang": "hi",
+      "amount": 740.59,
+      "timestamp_ist": "2026-09-04 17:51:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.45,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +2h (at 19:00 IST))",
+          "cost": 5.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 740.59,
+      "total_cost": 5.0,
+      "net_recovered": 735.59,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+2h (at 19:00 IST)"
+      }
+    },
+    {
+      "event_id": "sf_0003",
+      "type": "subscription_failure",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 2802.24,
+      "timestamp_ist": "2026-09-05 19:53:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_006 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0003",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_014",
+      "customer_name": "Manoj Kulkarni",
+      "customer_lang": "en",
+      "amount": 4589.11,
+      "timestamp_ist": "2026-09-05 22:31:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_014 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0000",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_008",
+      "customer_name": "Arjun Mehta",
+      "customer_lang": "en",
+      "amount": 12449.63,
+      "timestamp_ist": "2026-09-04 23:59:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "friction_hesitation",
+          "confidence": 0.5586,
+          "method": "ml_gradient_boosting_classifier",
+          "result": "ML model detected intent 'friction_hesitation' with 55.9% confidence based on session telemetry.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:59 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "targeted_discount_nudge",
+          "attempt": 1,
+          "success_probability": 0.219,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed targeted_discount_nudge via automated_engine. (ML Discount: 15%)",
+          "cost": 1872.44
+        },
+        {
+          "stage": "execution",
+          "action": "reminder_message",
+          "attempt": 2,
+          "success_probability": 0.25,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed reminder_message via automated_engine. (ML Discount: 0%)",
+          "cost": 8.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 12449.63,
+      "total_cost": 1880.44,
+      "net_recovered": 10569.19,
+      "ml_diagnostics": {
+        "diagnosed_cause": "friction_hesitation",
+        "confidence_score": 0.5586,
+        "method": "ml_gradient_boosting_classifier",
+        "rationale": "ML model detected intent 'friction_hesitation' with 55.9% confidence based on session telemetry.",
+        "uplift_optimal_discount": "15%"
+      }
+    },
+    {
+      "event_id": "sf_0010",
+      "type": "subscription_failure",
+      "customer_id": "cust_004",
+      "customer_name": "Vikram Rao",
+      "customer_lang": "hi",
+      "amount": 372.64,
+      "timestamp_ist": "2026-09-04 09:01:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "expired_card",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'expired_card' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.285,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +2h (at 11:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (21:01 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 372.64,
+      "total_cost": 15.0,
+      "net_recovered": 357.64,
+      "ml_diagnostics": {
+        "diagnosed_cause": "expired_card",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'expired_card' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+2h (at 11:00 IST)"
+      }
+    },
+    {
+      "event_id": "ca_0006",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_012",
+      "customer_name": "Siddharth Joshi",
+      "customer_lang": "en",
+      "amount": 5377.54,
+      "timestamp_ist": "2026-09-04 11:45:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_012 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "sf_0011",
+      "type": "subscription_failure",
+      "customer_id": "cust_003",
+      "customer_name": "Sara Khan",
+      "customer_lang": "en",
+      "amount": 1013.64,
+      "timestamp_ist": "2026-09-05 00:05:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (00:05 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "mandate_retry",
+          "attempt": 1,
+          "success_probability": 0.354,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed mandate_retry via automated_engine. (Smart Window: +12h (at 12:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "execution",
+          "action": "update_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed update_payment_method_nudge via in_app_mandate_update.",
+          "cost": 10.0
+        },
+        {
+          "stage": "escalation",
+          "action": "human_escalation",
+          "attempt": 3,
+          "result": "Escalated to specialized human recovery team (automated ladder exhausted).",
+          "cost": 250.0
+        }
+      ],
+      "outcome": "not_recovered",
+      "recovered_amount": 0.0,
+      "total_cost": 265.0,
+      "net_recovered": -265.0,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+12h (at 12:00 IST)"
+      }
+    },
+    {
+      "event_id": "pf_0005",
+      "type": "payment_failure",
+      "customer_id": "cust_013",
+      "customer_name": "Pooja Sharma",
+      "customer_lang": "hi",
+      "amount": 5065.63,
+      "timestamp_ist": "2026-09-05 09:02:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_013 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0009",
+      "type": "payment_failure",
+      "customer_id": "cust_008",
+      "customer_name": "Arjun Mehta",
+      "customer_lang": "en",
+      "amount": 6378.85,
+      "timestamp_ist": "2026-09-04 11:58:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_008 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0011",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_007",
+      "customer_name": "Fatima Sheikh",
+      "customer_lang": "hi",
+      "amount": 3208.55,
+      "timestamp_ist": "2026-09-04 17:44:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "check_consent",
+          "result": "BLOCKED \u2014 Customer explicitly opted out. Mandatory compliance halt; no contact permitted.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "stopped_no_contact",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0009",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_009",
+      "customer_name": "Divya Menon",
+      "customer_lang": "hi",
+      "amount": 2194.02,
+      "timestamp_ist": "2026-09-05 08:52:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_009 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "oi_0012",
+      "type": "overdue_invoice",
+      "customer_id": "cust_008",
+      "customer_name": "Arjun Mehta",
+      "customer_lang": "en",
+      "amount": 14058.55,
+      "timestamp_ist": "2026-07-22 23:44:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "low_risk",
+          "confidence": 0.85,
+          "method": "ml_random_forest_risk_model",
+          "result": "B2B Risk Model classified as 'low_risk' (Default prob: 1.4%).",
+          "cost": 0.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "result": "DEFERRED \u2014 Inside quiet hours (23:44 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "gentle_reminder",
+          "attempt": 1,
+          "success_probability": 0.65,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed gentle_reminder via automated_engine.",
+          "cost": 15.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 14058.55,
+      "total_cost": 15.0,
+      "net_recovered": 14043.55,
+      "ml_diagnostics": {
+        "diagnosed_cause": "low_risk",
+        "confidence_score": 0.85,
+        "method": "ml_random_forest_risk_model",
+        "rationale": "B2B Risk Model classified as 'low_risk' (Default prob: 1.4%)."
+      }
+    },
+    {
+      "event_id": "pf_0007",
+      "type": "payment_failure",
+      "customer_id": "cust_005",
+      "customer_name": "Neha Gupta",
+      "customer_lang": "en",
+      "amount": 14520.42,
+      "timestamp_ist": "2026-09-04 10:08:50 IST",
+      "steps": [
+        {
+          "stage": "diagnosis",
+          "action": "diagnose_root_cause",
+          "cause": "insufficient_funds",
+          "confidence": 0.95,
+          "method": "rule_assisted_by_ml_propensity",
+          "result": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "retry_after_delay",
+          "attempt": 1,
+          "success_probability": 0.338,
+          "result": "FAILED \u2014 Customer did not complete transaction",
+          "details": "Executed retry_after_delay via automated_engine. (Smart Window: +8h (at 18:00 IST))",
+          "cost": 5.0
+        },
+        {
+          "stage": "policy_enforcement",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "result": "DEFERRED \u2014 Inside quiet hours (22:08 IST). Scheduled for 08:30 IST window.",
+          "cost": 0.0
+        },
+        {
+          "stage": "execution",
+          "action": "switch_payment_method_nudge",
+          "attempt": 2,
+          "success_probability": 0.45,
+          "result": "RECOVERED \u2014 Payment confirmed",
+          "details": "Executed switch_payment_method_nudge via whatsapp_upi_intent.",
+          "cost": 10.0
+        }
+      ],
+      "outcome": "recovered",
+      "recovered_amount": 14520.42,
+      "total_cost": 15.0,
+      "net_recovered": 14505.42,
+      "ml_diagnostics": {
+        "diagnosed_cause": "insufficient_funds",
+        "confidence_score": 0.95,
+        "method": "rule_assisted_by_ml_propensity",
+        "rationale": "Mapped structured gateway signal 'insufficient_funds' with high diagnostic confidence.",
+        "smart_retry_recommendation": "+8h (at 18:00 IST)"
+      }
+    },
+    {
+      "event_id": "ca_0005",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_010",
+      "customer_name": "Rohan Das",
+      "customer_lang": "en",
+      "amount": 5869.11,
+      "timestamp_ist": "2026-09-05 16:52:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_010 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0007",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_011",
+      "customer_name": "Anjali Singh",
+      "customer_lang": "hi",
+      "amount": 10379.06,
+      "timestamp_ist": "2026-09-05 14:28:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_011 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0011",
+      "type": "payment_failure",
+      "customer_id": "cust_013",
+      "customer_name": "Pooja Sharma",
+      "customer_lang": "hi",
+      "amount": 12915.68,
+      "timestamp_ist": "2026-09-04 05:52:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_013 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0012",
+      "type": "payment_failure",
+      "customer_id": "cust_003",
+      "customer_name": "Sara Khan",
+      "customer_lang": "en",
+      "amount": 17748.36,
+      "timestamp_ist": "2026-09-05 05:26:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_003 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0001",
+      "type": "payment_failure",
+      "customer_id": "cust_009",
+      "customer_name": "Divya Menon",
+      "customer_lang": "hi",
+      "amount": 4090.96,
+      "timestamp_ist": "2026-09-04 17:55:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_009 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0003",
+      "type": "payment_failure",
+      "customer_id": "cust_012",
+      "customer_name": "Siddharth Joshi",
+      "customer_lang": "en",
+      "amount": 5801.97,
+      "timestamp_ist": "2026-09-04 03:19:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_012 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "ca_0014",
+      "type": "checkout_abandonment",
+      "customer_id": "cust_006",
+      "customer_name": "Karthik Iyer",
+      "customer_lang": "en",
+      "amount": 3839.77,
+      "timestamp_ist": "2026-09-05 06:21:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_006 already contacted on 2026-09-05 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    },
+    {
+      "event_id": "pf_0013",
+      "type": "payment_failure",
+      "customer_id": "cust_001",
+      "customer_name": "Priya Nair",
+      "customer_lang": "en",
+      "amount": 11754.94,
+      "timestamp_ist": "2026-09-04 16:14:50 IST",
+      "steps": [
+        {
+          "stage": "compliance_gate",
+          "action": "contact_frequency_cap",
+          "result": "DEFERRED \u2014 Customer cust_001 already contacted on 2026-09-04 (1/day limit). Queued for next day window.",
+          "cost": 0.0
+        }
+      ],
+      "outcome": "deferred_frequency_cap",
+      "recovered_amount": 0.0,
+      "total_cost": 0.0,
+      "net_recovered": 0.0,
+      "ml_diagnostics": {}
+    }
+  ]
+}

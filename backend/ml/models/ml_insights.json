@@ -1,0 +1,64 @@
+{
+  "smart_retry": {
+    "model_type": "Random Forest Classifier",
+    "accuracy": 0.7667,
+    "roc_auc": 0.7356,
+    "feature_importances": {
+      "amount": 0.156,
+      "hour_of_day": 0.144,
+      "gateway_error_code_bank_technical_error": 0.1268,
+      "customer_tenure_months": 0.125,
+      "day_of_month": 0.1122,
+      "attempt_number": 0.0797,
+      "gateway_error_code_risk_blocked": 0.0495,
+      "mandate_type_card_emandate": 0.024,
+      "gateway_error_code_expired_card": 0.0219,
+      "card_type_rupay_debit": 0.0208
+    },
+    "status": "active_trained"
+  },
+  "intent_classifier": {
+    "model_type": "Gradient Boosting Classifier",
+    "accuracy": 1.0,
+    "classes": [
+      "price_sensitivity",
+      "friction_hesitation",
+      "technical_issue",
+      "distraction_or_bounce"
+    ],
+    "feature_importances": {
+      "time_on_checkout_sec": 0.4614,
+      "coupon_attempts": 0.3793,
+      "exit_velocity_px_sec": 0.067,
+      "cart_amount": 0.0441,
+      "scroll_depth_pct": 0.0433,
+      "cart_items": 0.0046,
+      "past_purchases": 0.0002,
+      "device_desktop": 0.0,
+      "device_mobile": 0.0,
+      "device_tablet": 0.0
+    },
+    "status": "active_trained"
+  },
+  "uplift_optimizer": {
+    "model_type": "Random Forest Regressor",
+    "r2_score": 0.9781,
+    "candidate_discounts": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "status": "active_trained"
+  },
+  "invoice_risk": {
+    "model_type": "Dual Classifier & Regressor",
+    "risk_accuracy": 0.9667,
+    "risk_tiers": [
+      "low_risk",
+      "medium_risk",
+      "high_default_risk"
+    ],
+    "status": "active_trained"
+  }
+}
